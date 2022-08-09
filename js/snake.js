@@ -5,18 +5,23 @@ const dieBgm = new Audio('../assets/gameover.mp3');
 const moveBgm = new Audio('../assets/move.mp3');
 const Bgm = new Audio('../assets/music.mp3');
 let score = 0;
-let speed = 5;
+let speed = 9;
 let lastPaintTime = 0;
 let mute = true;
+let pause = false;
+let temp = speed;
+let prev = score;
+
 // starting point of snake
-let x0 = 5 + Math.round(10 * Math.random());
-let y0 = 5 + Math.round(10 * Math.random());
+let x0 = Math.round(5 + 20 * Math.random());
+let y0 = Math.round(5 + 20 * Math.random());
 let snakeArr = [
     { x: x0, y: y0 }
 ];
+
 // starting point of food
-let fx0 = Math.round(20 * Math.random());
-let fy0 = Math.round(20 * Math.random());
+let fx0 = Math.round(1 + 28 * Math.random());
+let fy0 = Math.round(1 + 28 * Math.random());
 let food = { x: fx0, y: fy0 };
 let board = document.getElementById('board');
 
@@ -32,7 +37,7 @@ function gameLoop(curtime) {
 
 function collide(arr) {
     // hit boundary
-    if (arr[0].x <= 0 || arr[0].y <= 0 || arr[0].x >= 20 || arr[0].y >= 20) {
+    if (arr[0].x <= 0 || arr[0].y <= 0 || arr[0].x >= 30 || arr[0].y >= 30) {
         return true;
     }
     // bump into snake
@@ -50,28 +55,35 @@ function gameEngine() {
     if (collide(snakeArr)) {
         dieBgm.play();
         alert("You're dead! Have some shame and try again.");
-        direction = { x: 0, y: 0 };
-        snakeArr = [{ x: x0, y: y0 }];
-        food = { x: fx0, y: fy0 };
-        speed = 5;
+        speed = 9;
         score = 0;
+        showSpeed();
+        direction = { x: 0, y: 0 };
+        x0 = Math.round(5 + 20 * Math.random());
+        y0 = Math.round(5 + 20 * Math.random());
+        snakeArr = [{ x: x0, y: y0 }];
+        fx0 = Math.round(1 + 28 * Math.random());
+        fy0 = Math.round(1 + 28 * Math.random());
+        food = { x: fx0, y: fy0 };
     }
 
     // eating food
     if (snakeArr[0].x == food.x && snakeArr[0].y == food.y) {
         foodBgm.play();
         snakeArr.unshift({ x: snakeArr[0].x + direction.x, y: snakeArr[0].y + direction.y });
-        let a = 0, b = 20;
+        let a = 1, b = 29;
         food = { x: a + Math.round((b - a) * Math.random()), y: a + Math.round((b - a) * Math.random()) };
-        score++;
-        scorebox.innerHTML = "Score: " + score;
-        if (score % 8 == 0) {
+        score += 1 + (speed - 9);
+        scorebox.innerHTML = "Score: " + Math.round(score);
+        if (score - prev >= 75) {
             speed += 0.5;
+            prev = speed;
+            showSpeed();
         }
         if (score > hiscoreval) {
             hiscoreval = score;
             localStorage.setItem('hiscore', JSON.stringify(hiscoreval));
-            hiscorebox.innerHTML = "Hiscore: " + hiscoreval;
+            hiscorebox.innerHTML = "Hiscore: " + Math.round(hiscoreval);
         }
     }
 
@@ -96,6 +108,7 @@ function gameEngine() {
         }
         board.appendChild(snakePart);
     }
+
     // display food
     let foodPart = document.createElement('div');
     foodPart.style.gridRowStart = food.y;
@@ -112,26 +125,61 @@ if (hiscore == null) {
 }
 else {
     hiscoreval = JSON.parse(hiscore);
-    hiscorebox.innerHTML = "Hiscore: " + hiscoreval;
+    hiscorebox.innerHTML = "Hiscore: " + Math.round(hiscoreval);
+}
+
+// pause game
+function togglePause() {
+    let pausebox = document.getElementById('pausebox');
+    pause = !pause;
+    if (pause) {
+        temp = speed;
+        speed = 0;
+        Bgm.pause();
+        showSpeed();
+        pausebox.style.visibility = 'visible';
+        pausebox.style.transitionProperty = 'all';
+        pausebox.style.transitionDuration = '1s';
+        pausebox.style.transform = 'scale(1.3)'
+    }
+    else {
+        speed = temp;
+        showSpeed();
+        if (!mute)
+            Bgm.play();
+        pausebox.style.visibility = 'hidden';
+    }
+}
+
+// show cur speed
+function showSpeed() {
+    let speedbar = document.getElementById('speedbar');
+    speedbar.innerHTML = "Speed: " + speed;
 }
 
 // main function
 window.requestAnimationFrame(gameLoop);
+showSpeed();
+
 window.addEventListener('keydown', e => {
     switch (e.key) {
         case 'ArrowUp':
+            if (direction.x == 0 && direction.y == 1) break;
             direction = { x: 0, y: -1 };
             moveBgm.play();
             break;
         case 'ArrowDown':
+            if (direction.x == 0 && direction.y == -1) break;
             direction = { x: 0, y: 1 };
             moveBgm.play();
             break;
         case 'ArrowLeft':
+            if (direction.x == 1 && direction.y == 0) break;
             direction = { x: -1, y: 0 };
             moveBgm.play();
             break;
         case 'ArrowRight':
+            if (direction.x == -1 && direction.y == 0) break;
             direction = { x: 1, y: 0 };
             moveBgm.play();
             break;
@@ -139,6 +187,17 @@ window.addEventListener('keydown', e => {
             mute = !mute;
             if (mute) Bgm.pause();
             else Bgm.play();
+            break;
+        case 'p':
+            togglePause();
+            break;
+        case 'Shift':
+            speed++;
+            showSpeed();
+            break;
+        case 'Control':
+            speed--;
+            showSpeed();
             break;
         default:
             break;

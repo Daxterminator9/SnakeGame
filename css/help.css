@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Alatsi&family=Satisfy&display=swap');
+
+body {
+    background: url('../assets/bgf3.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+#infobox {
+    display: inline-block;
+    position: absolute;
+    top: 25px;
+    right: 150px;
+    height: 300px;
+    width: 600px;
+    padding: 21px;
+    margin: 10px;
+    background-color: antiquewhite;
+    opacity: 0.8;
+    border: 3px solid cyan;
+    border-radius: 12px;
+    font-family: 'Satisfy', cursive;
+    font-size: 1.5rem;
+}
+
+#controls {
+    position: absolute;
+    bottom: 70px;
+    right: 350px;
+    padding: 23px;
+    margin: 9px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Alatsi', sans-serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: rgb(67, 18, 18);
+    border: 3px solid greenyellow;
+    border-radius: 15px;
+    background-color: palegoldenrod;
+    opacity: 0.8;
+}

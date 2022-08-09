@@ -1,13 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Indie Flower', cursive;
 }
 
 body {
-    background-image: url('../assets/bg.jpg');
+    background-image: url('../assets/bgf1.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
@@ -15,38 +16,42 @@ body {
 }
 
 #welcome {
-    display: inline-block;
+    display: block;
     position: relative;
-    top: 2vh;
-    left: 29vw;
-    padding: 7px;
+    top: 0.4vh;
+    left: 0.1vw;
+    padding: 4px;
     text-align: center;
-    color: rgb(94, 26, 26);
-    font-size: 4rem;
-    background-color: rgb(218, 162, 101);
+    color: rgb(11, 5, 5);
+    font-size: 3rem;
+    font-family: 'Press Start 2P', cursive;
+    background-color: rgb(89, 201, 126);
     border-radius: 12px;
+    box-shadow: -2px -2px aquamarine;
 }
 
 #menu ul {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 54vh;
-    left: 50vw;
+    top: 61vh;
+    left: 51vw;
     justify-content: center;
     align-items: center;
 }
 
 #menu ul li {
     list-style: none;
+    padding: 3px;
 }
 
 #menu ul li a {
     text-decoration: none;
-    font-size: 3rem;
-    color: brown;
+    font-size: 3.1rem;
+    color: rgb(152, 71, 71);
+    font-family: 'Berkshire Swash', cursive;
 }
 
 #menu ul li a:hover {
-    color: beige;
+    color: rgb(102, 25, 133)
 }
