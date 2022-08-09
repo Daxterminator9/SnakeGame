@@ -6,5 +6,5 @@ Below are the provided screenshots of the working game.
 
 ![demo1](https://user-images.githubusercontent.com/110553678/183638415-4f5808c8-f285-4815-9274-bb49c4a7a077.png)
 ![demo2](https://user-images.githubusercontent.com/110553678/183638442-fca4ba9b-0848-430f-abff-b0e95f5a8fc9.png)
-![demo3](https://user-images.githubusercontent.com/110553678/183638462-45433d68-f66c-4676-be76-c8e0dd0770ac.png)
+![demo3](https://user-images.githubusercontent.com/110553678/183642459-65ec4486-31e0-49e8-a89f-51918dde42ab.png)
 
