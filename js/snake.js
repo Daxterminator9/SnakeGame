@@ -192,10 +192,12 @@ window.addEventListener('keydown', e => {
             togglePause();
             break;
         case 'Shift':
+            if (pause) break;
             speed++;
             showSpeed();
             break;
         case 'Control':
+            if (pause) break;
             speed--;
             showSpeed();
             break;
