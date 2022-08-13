@@ -54,5 +54,6 @@ body {
 }
 
 #menu ul li a:hover {
-    color: rgb(102, 25, 133)
+    color: rgb(102, 25, 133);
+    cursor: pointer;
 }
